@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Send a little snow just because. Send a shower of hearts to say “I’m thinking of you.”">
+  <meta name="theme-color" content="#11152c">
+  <title>Shower — A little joy, shared</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #11152c;
+      color: #f5f6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background: radial-gradient(ellipse at 82% 14%, #222947, transparent 56%);
+    }
+    .wrap { width: min(100% - 3rem, 70rem); margin-inline: auto; }
+    header { display: flex; align-items: center; gap: .65rem; padding-block: 2.4rem; font-size: 1.12rem; font-weight: 650; }
+    .brand-snow { color: #a8d7ff; font-size: 1.7rem; line-height: 1; }
+    main { padding-block: clamp(1.5rem, 7vh, 6.5rem) 3rem; }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 5.25rem); align-items: center; }
+    h1 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(3.35rem, 7.1vw, 6.65rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+      margin: 0 0 1.5rem;
+    }
+    h1 em { display: block; color: #b5d8ff; font-weight: inherit; }
+    .intro { color: #ced5ed; font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.65; margin: 0; }
+    .stores { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-top: 1.75rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      min-height: 2.85rem;
+      padding: .55rem .9rem;
+      border: 1px solid #66779c;
+      border-radius: .65rem;
+      color: inherit;
+      text-decoration: none;
+      font: inherit;
+      font-size: .94rem;
+      font-weight: 650;
+      background: #222b49;
+    }
+    a.button, button.button { cursor: pointer; }
+    .button:hover:not([aria-disabled="true"]) { background: #313f64; }
+    .button:focus-visible { outline: 3px solid #ffccdf; outline-offset: 4px; }
+    .primary { background: #b5d8ff; border-color: #b5d8ff; color: #111d34; }
+    .primary:hover:not([aria-disabled="true"]) { background: #d7eaff; }
+    .soon { color: #a2abc5; background: #1a2038; border-color: #45516e; }
+    .demo { min-width: 0; margin: 0; }
+    .scene {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      min-height: clamp(16rem, 34vw, 25rem);
+      overflow: hidden;
+      border-radius: 1.5rem;
+      border: 1px solid #485f8d;
+      background: radial-gradient(ellipse at 50% 48%, #344e7b, #202e51 55%, #1a2542);
+      box-shadow: 0 1.5rem 4rem #080a1f66;
+    }
+    .scene[data-effect="hearts"] { background: radial-gradient(ellipse at 50% 48%, #56365d, #352645 55%, #252040); }
+    .glow {
+      grid-area: 1 / 1;
+      width: 55%;
+      aspect-ratio: 1;
+      border: 1px solid #c1ddff19;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1.65rem #bbd9ff08, 0 0 0 3.3rem #bbd9ff07;
+    }
+    .mark {
+      grid-area: 1 / 1;
+      color: #b9ddff;
+      font-size: clamp(4rem, 11vw, 8.75rem);
+      line-height: 1;
+      text-shadow: 0 0 2rem #86caff88;
+      user-select: none;
+    }
+    [data-effect="hearts"] .mark { color: #ffd3e2; text-shadow: 0 0 2rem #ff83b088; }
+    .particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .flake {
+      position: absolute;
+      top: -2rem;
+      left: var(--x);
+      color: #e1f2ff;
+      font-size: var(--size);
+      animation: fall var(--speed) var(--delay) linear both;
+      animation-iteration-count: 2;
+    }
+    [data-effect="hearts"] .flake { color: #ffabc9; }
+    @keyframes fall {
+      0% { translate: 0 -2rem; opacity: 0; }
+      16%, 67% { opacity: .93; }
+      100% { translate: var(--drift) 28rem; opacity: 0; }
+    }
+    .preview-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; padding-top: 1rem; }
+    .snow { color: #b5d8ff; }
+    .heart { color: #ffbdd5; }
+    button[aria-pressed="true"] { border-color: #c0d9ff; background: #313f64; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    @media (max-width: 760px) {
+      header { padding-block: 1.65rem; }
+      main { padding-top: 1rem; }
+      .hero { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flake { top: var(--y); animation: none; opacity: .78; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap"><span class="brand-snow" aria-hidden="true">❄︎</span>Shower</header>
+  <main class="wrap hero">
+    <div>
+      <h1>A little joy, <em>shared.</em></h1>
+      <p class="intro">Send a little snow just because.<br>Send a shower of hearts to say “I’m thinking of you.”</p>
+      <div class="stores">
+        <a class="button primary" href="https://chromewebstore.google.com/detail/shower/nnhjnianlomfffekodmbmibmabfggpii">Add to Chrome</a>
+        <a class="button soon" data-store-url="https://microsoftedge.microsoft.com/addons/detail/shower/mbnehdnaecnganncjbgambjidakkcbfp" role="link" aria-disabled="true">Edge · Coming soon</a>
+      </div>
+    </div>
+    <section class="demo" aria-label="Try a shower">
+      <div class="scene" aria-hidden="true">
+        <div class="glow"></div>
+        <span class="mark">❄︎</span>
+        <div class="particles"></div>
+      </div>
+      <div class="preview-controls">
+        <button class="button" type="button" data-preview="snow" aria-pressed="false"><span class="snow" aria-hidden="true">❄︎</span>Try Snow</button>
+        <button class="button" type="button" data-preview="hearts" aria-pressed="false"><span class="heart" aria-hidden="true">♥</span>Try Hearts</button>
+      </div>
+      <p class="sr-only" role="status"></p>
+    </section>
+  </main>
+  <script>
+    const scene = document.querySelector('.scene');
+    const particles = document.querySelector('.particles');
+    const mark = document.querySelector('.mark');
+    const status = document.querySelector('[role="status"]');
+    const controls = document.querySelectorAll('[data-preview]');
+    let cleanup;
+
+    function stopPreview() {
+      clearTimeout(cleanup);
+      particles.replaceChildren();
+      delete scene.dataset.effect;
+      mark.textContent = '❄︎';
+      controls.forEach(button => button.setAttribute('aria-pressed', 'false'));
+      status.textContent = 'Preview ended.';
+    }
+
+    function startPreview(effect) {
+      clearTimeout(cleanup);
+      const hearts = effect === 'hearts';
+      scene.dataset.effect = effect;
+      mark.textContent = hearts ? '♥' : '❄︎';
+      controls.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.preview === effect)));
+      status.textContent = hearts ? 'Hearts preview.' : 'Snow preview.';
+      const shower = document.createDocumentFragment();
+      for (let i = 0; i < 28; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'flake';
+        particle.textContent = mark.textContent;
+        particle.style.setProperty('--x', (3 + Math.random() * 94) + '%');
+        particle.style.setProperty('--y', (6 + Math.random() * 80) + '%');
+        particle.style.setProperty('--size', (.55 + Math.random() * .9) + 'rem');
+        particle.style.setProperty('--speed', (2.7 + Math.random() * 1.2) + 's');
+        particle.style.setProperty('--delay', (Math.random() * 1.5) + 's');
+        particle.style.setProperty('--drift', (-40 + Math.random() * 80) + 'px');
+        shower.append(particle);
+      }
+      particles.replaceChildren(shower);
+      cleanup = setTimeout(stopPreview, 9500);
+    }
+
+    controls.forEach(button => button.addEventListener('click', () => {
+      if (button.getAttribute('aria-pressed') === 'true') stopPreview();
+      else startPreview(button.dataset.preview);
+    }));
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && scene.dataset.effect) stopPreview();
+    });
+  </script>
+</body>
+</html>
