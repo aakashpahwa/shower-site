@@ -88,7 +88,7 @@
       user-select: none;
     }
     [data-effect="hearts"] .mark { color: #ffd3e2; text-shadow: 0 0 2rem #ff83b088; }
-    .particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
     .flake {
       position: absolute;
       top: -2rem;
@@ -96,13 +96,13 @@
       color: #e1f2ff;
       font-size: var(--size);
       animation: fall var(--speed) var(--delay) linear both;
-      animation-iteration-count: 2;
+      animation-iteration-count: infinite;
     }
     [data-effect="hearts"] .flake { color: #ffabc9; }
     @keyframes fall {
       0% { translate: 0 -2rem; opacity: 0; }
       16%, 67% { opacity: .93; }
-      100% { translate: var(--drift) 28rem; opacity: 0; }
+      100% { translate: var(--drift) calc(100dvh + 4rem); opacity: 0; }
     }
     .preview-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; padding-top: 1rem; }
     .snow { color: #b5d8ff; }
@@ -134,7 +134,6 @@
       <div class="scene" aria-hidden="true">
         <div class="glow"></div>
         <span class="mark">❄︎</span>
-        <div class="particles"></div>
       </div>
       <div class="preview-controls">
         <button class="button" type="button" data-preview="snow" aria-pressed="false"><span class="snow" aria-hidden="true">❄︎</span>Try Snow</button>
@@ -143,6 +142,7 @@
       <p class="sr-only" role="status"></p>
     </section>
   </main>
+  <div class="particles" aria-hidden="true"></div>
   <script>
     const scene = document.querySelector('.scene');
     const particles = document.querySelector('.particles');
@@ -155,6 +155,7 @@
       clearTimeout(cleanup);
       particles.replaceChildren();
       delete scene.dataset.effect;
+      delete particles.dataset.effect;
       mark.textContent = '❄︎';
       controls.forEach(button => button.setAttribute('aria-pressed', 'false'));
       status.textContent = 'Preview ended.';
@@ -164,19 +165,22 @@
       clearTimeout(cleanup);
       const hearts = effect === 'hearts';
       scene.dataset.effect = effect;
+      particles.dataset.effect = effect;
       mark.textContent = hearts ? '♥' : '❄︎';
       controls.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.preview === effect)));
       status.textContent = hearts ? 'Hearts preview.' : 'Snow preview.';
       const shower = document.createDocumentFragment();
-      for (let i = 0; i < 28; i++) {
+      const count = Math.min(64, Math.max(28, Math.round(window.innerWidth / 23)));
+      for (let i = 0; i < count; i++) {
         const particle = document.createElement('span');
         particle.className = 'flake';
         particle.textContent = mark.textContent;
-        particle.style.setProperty('--x', (3 + Math.random() * 94) + '%');
-        particle.style.setProperty('--y', (6 + Math.random() * 80) + '%');
+        particle.style.setProperty('--x', ((i + Math.random()) / count * 100) + '%');
+        particle.style.setProperty('--y', (3 + Math.random() * 92) + '%');
         particle.style.setProperty('--size', (.55 + Math.random() * .9) + 'rem');
-        particle.style.setProperty('--speed', (2.7 + Math.random() * 1.2) + 's');
-        particle.style.setProperty('--delay', (Math.random() * 1.5) + 's');
+        const duration = 4 + Math.random() * 2.5;
+        particle.style.setProperty('--speed', duration + 's');
+        particle.style.setProperty('--delay', (-Math.random() * duration) + 's');
         particle.style.setProperty('--drift', (-40 + Math.random() * 80) + 'px');
         shower.append(particle);
       }
