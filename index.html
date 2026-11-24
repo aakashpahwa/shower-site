@@ -100,8 +100,8 @@
     }
     [data-effect="hearts"] .flake { color: #ffabc9; }
     @keyframes fall {
-      0% { translate: 0 -2rem; opacity: 0; }
-      16%, 67% { opacity: .93; }
+      0% { translate: 0 0; opacity: 0; }
+      12%, 67% { opacity: .93; }
       100% { translate: var(--drift) calc(100dvh + 4rem); opacity: 0; }
     }
     .preview-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; padding-top: 1rem; }
@@ -180,7 +180,7 @@
         particle.style.setProperty('--size', (.55 + Math.random() * .9) + 'rem');
         const duration = 4 + Math.random() * 2.5;
         particle.style.setProperty('--speed', duration + 's');
-        particle.style.setProperty('--delay', (-Math.random() * duration) + 's');
+        particle.style.setProperty('--delay', (i % 8 === 0 ? Math.random() * .35 : .45 + Math.random() * 2.3) + 's');
         particle.style.setProperty('--drift', (-40 + Math.random() * 80) + 'px');
         shower.append(particle);
       }
