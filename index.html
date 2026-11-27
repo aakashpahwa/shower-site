@@ -52,11 +52,10 @@
       background: #222b49;
     }
     a.button, button.button { cursor: pointer; }
-    .button:hover:not([aria-disabled="true"]) { background: #313f64; }
+    .button:hover { background: #313f64; }
     .button:focus-visible { outline: 3px solid #ffccdf; outline-offset: 4px; }
     .primary { background: #b5d8ff; border-color: #b5d8ff; color: #111d34; }
-    .primary:hover:not([aria-disabled="true"]) { background: #d7eaff; }
-    .soon { color: #a2abc5; background: #1a2038; border-color: #45516e; }
+    .primary:hover { background: #d7eaff; }
     .demo { min-width: 0; margin: 0; }
     .scene {
       position: relative;
@@ -127,7 +126,7 @@
       <p class="intro">Send a little snow just because.<br>Send a shower of hearts to say “I’m thinking of you.”</p>
       <div class="stores">
         <a class="button primary" href="https://chromewebstore.google.com/detail/shower/nnhjnianlomfffekodmbmibmabfggpii" target="_blank" rel="noopener">Add to Chrome</a>
-        <a class="button soon" data-store-url="https://microsoftedge.microsoft.com/addons/detail/shower/mbnehdnaecnganncjbgambjidakkcbfp" role="link" aria-disabled="true">Edge · Coming soon</a>
+        <a class="button" href="https://microsoftedge.microsoft.com/addons/detail/shower/mbnehdnaecnganncjbgambjidakkcbfp" target="_blank" rel="noopener">Add to Edge</a>
       </div>
     </div>
     <section class="demo" aria-label="Try a shower">
